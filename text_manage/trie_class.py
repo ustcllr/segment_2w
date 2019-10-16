@@ -1,9 +1,9 @@
 """
-将JSON词库列表转换成字典树，并存成文件
+191016
+完全抄袭字典树的类，用于读取字典树文件
 """
 
-import json
-import pickle
+import re
 
 
 class TrieNode(object):
@@ -37,22 +37,3 @@ class Trie(object):
                 return False
             node = node.children[char]
         return node.is_word
-
-
-if __name__ == '__main__':
-    # 读取文件
-    read_path = '../dataset/dict_and_model/word_list.json'
-    file = open(read_path, 'r')
-    file_read = file.read()
-    file.close()
-
-    # 将词语嵌入到一个字典树中
-    word_list = json.loads(file_read)
-    trie = Trie()
-    for word in word_list:
-        trie.add(word)
-
-    # 将对象序列化并存成一个二进制文件
-    write_path = '../dataset/dict_and_model/trie.pkl'
-    with open(write_path, 'wb') as f:
-        picklestring = pickle.dump(trie, f)
